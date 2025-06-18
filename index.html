@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Felices 9 meses</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #000;
+    }
+    header {
+      background-color: #d1001c;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3em;
+    }
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+      background: #f2f2f2;
+    }
+    .hero img {
+      max-width: 100%;
+      height: auto;
+    }
+    .video-section {
+      display: flex;
+      justify-content: center;
+      padding: 40px 0;
+    }
+    .video-section video {
+      max-width: 90%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .special-img {
+      display: flex;
+      justify-content: center;
+      padding: 40px 0;
+    }
+    /* Estilos para la imagen de la carta inicial (el "gatillo" para abrir el modal) */
+    .special-img img {
+      max-width: 90%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+    }
+
+    /* ESTILOS PARA EL MODAL/LIGHTBOX DE LA CARTA ESCRITA */
+    .modal {
+      display: none; /* Oculto por defecto */
+      position: fixed; /* Permanece en su lugar, incluso al hacer scroll */
+      z-index: 1000; /* Se superpone a todo lo demás */
+      left: 0;
+      top: 0;
+      width: 100%; /* Ancho total */
+      height: 100%; /* Alto total */
+      overflow: auto; /* Habilitar scroll si la imagen es muy grande */
+      background-color: rgba(0,0,0,0.8); /* Fondo oscuro con transparencia */
+      /* Transiciones para la aparición/desaparición */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      margin: auto; /* Centra la imagen */
+      display: block;
+      max-width: 90%; /* Asegura que la imagen no sea más ancha que el 90% de la pantalla */
+      max-height: 90vh; /* Asegura que la imagen no sea más alta que el 90% del viewport height */
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      /* Transición para la imagen en sí */
+      transform: scale(0.8);
+      transition: transform 0.5s ease;
+    }
+
+    .modal.show .modal-content {
+      transform: scale(1); /* Escala a tamaño normal cuando se muestra */
+    }
+
+    /* Botón de cerrar */
+    .close-button {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #d1001c;
+      color: white;
+    }
+
+    /* ======================================= */
+    /* DISEÑO RESPONSIVO PARA MÓVILES Y TABLETAS */
+    /* ======================================= */
+
+    /* Para pantallas más pequeñas que 768px (tabletas, móviles grandes) */
+    @media (max-width: 480px) {
+      header {
+        padding: 15px; /* Menos padding en el encabezado */
+      }
+      header h1 {
+        font-size: 2.5em; /* Título principal más pequeño */
+      }
+      .hero h2 {
+        font-size: 1.5em; /* Subtítulo del hero más pequeño */
+      }
+      .video-section, .special-img {
+        padding: 20px 0; /* Menos padding vertical en las secciones */
+      }
+      .modal-content {
+          max-width: 95%; /* La imagen del modal ocupa más ancho en pantallas pequeñas */
+          max-height: 85vh; /* Ajuste la altura máxima del modal para no salirse */
+      }
+      .close-button {
+          font-size: 30px; /* Botón de cerrar más pequeño */
+          top: 10px;
+          right: 15px;
+      }
+    }
+
+    /* Para pantallas más pequeñas que 480px (móviles típicos) */
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2em; /* Título principal aún más pequeño */
+      }
+      .hero h2 {
+        font-size: 1.2em; /* Subtítulo del hero aún más pequeño */
+      }
+      .hero, .video-section, .special-img {
+        padding: 15px 10px; /* Más ajuste de padding */
+      }
+      .footer {
+        padding: 15px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Felices 9 meses</h1>
+    <p>Un regalo al estilo Fórmula 1</p>
+  </header>
+
+  <section class="hero">
+    <img src="banner.png" alt="Banner de Fórmula 1">
+    <h2>Celebramos con velocidad y estilo</h2>
+  </section>
+
+  <section class="video-section">
+    <video controls>
+      <source src="maxivideo.mp4.MP4" type="video/mp4">
+      Tu navegador no soporta la reproducción de video.
+    </video>
+  </section>
+
+  <section class="special-img">
+    <img id="cartaTrigger" src="carta.jpg.PNG" alt="Sobre rojo con lazo y texto Lee la carta">
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 Felices 9 meses</p>
+  </footer>
+
+  <div id="cartaModal" class="modal">
+    <span class="close-button">&times;</span>
+    <img class="modal-content" id="imgCartaEscrita" src="Carta_amor.png" alt="Carta escrita">
+  </div>
+
+  <script>
+    // Obtener referencias a los elementos del DOM
+    var cartaTrigger = document.getElementById('cartaTrigger'); // La imagen del sobre
+    var cartaModal = document.getElementById('cartaModal');       // El contenedor del modal
+    var closeButton = document.getElementsByClassName('close-button')[0]; // El botón de cerrar (la 'x')
+
+    // Cuando se hace clic en la imagen de la carta inicial (carta.jpg)
+    cartaTrigger.onclick = function() {
+      cartaModal.style.display = "block"; // Primero hace que el modal sea visible
+      // Pequeño retraso para que 'display: block' se aplique antes de iniciar la transición CSS
+      setTimeout(() => {
+        cartaModal.classList.add('show'); // Añade la clase 'show' para activar la transición de opacidad y escala
+      }, 10);
+    }
+
+    // Cuando se hace clic en el botón de cerrar (la 'x')
+    closeButton.onclick = function() {
+      cartaModal.classList.remove('show'); // Quita la clase 'show' para iniciar la transición de ocultado
+      // Espera a que termine la transición (0.5 segundos) antes de ocultar completamente el modal
+      setTimeout(() => {
+        cartaModal.style.display = "none";
+      }, 500);
+    }
+
+    // Cuando el usuario hace clic en cualquier parte fuera de la imagen del modal (el fondo oscuro)
+    window.onclick = function(event) {
+      if (event.target == cartaModal) {
+        cartaModal.classList.remove('show'); // Quita la clase 'show'
+        // Espera a que termine la transición antes de ocultar completamente
+        setTimeout(() => {
+          cartaModal.style.display = "none";
+        }, 500);
+      }
+    }
+  </script>
+
+</body>
+</html>
